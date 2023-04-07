@@ -1,10 +1,17 @@
 import { Component } from '@angular/core';
 
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
-})
+import { AccountService } from './services/account.service';
+import { User } from './models/user';
+
+@Component({ selector: 'app-root', templateUrl: 'app.component.html' })
 export class AppComponent {
-  title = 'angular-jw-login';
+  user?: User | null;
+
+  constructor(private accountService: AccountService) {
+    this.accountService.user.subscribe(x => this.user = x);
+  }
+
+  logout() {
+    this.accountService.logout();
+  }
 }
